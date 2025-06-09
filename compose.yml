@@ -1,0 +1,41 @@
+services:
+
+  traefik:
+    image: traefik:v3.0
+    container_name: "mapproxy_traefik"
+    command: --api.insecure=true --providers.docker
+    ports:
+      - 80:80
+      - 8080:8080 # Dashboard
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+   
+  mapproxy:
+    image: kartoza/mapproxy
+    volumes:
+      - ./mapproxy.yaml:/mapproxy/mapproxy.yaml
+    labels:
+      - "traefik.http.routers.map_mapproxy.rule=Host(`mapproxy.map.localhost`)"
+    expose:
+      - 8080
+      
+#  mapserver:
+#    image: mapserver/mapserver
+#    user: root
+#    labels:
+#      - "traefik.http.routers.map_mapserver.rule=Host(`mapserver.map.localhost`)"
+#    expose:
+#      - 80
+
+  app:
+    image: node:alpine
+    working_dir: /usr/src/app
+    user: node
+    volumes:
+      - ./app:/usr/src/app
+    command: sh -c 'npx http-server'    
+    labels:
+      - "traefik.http.routers.map_app.rule=Host(`map.localhost`)"
+    expose:
+      - 8080
+
