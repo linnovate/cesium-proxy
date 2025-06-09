@@ -37,6 +37,8 @@ caches:
 sources:
   ows:
     type: wms
+    http:
+      ssl_no_cert_checks: True
     req:
       url: https://ows.terrestris.de/osm/service
       layers: OSM-WMS
@@ -45,5 +47,3 @@ sources:
 grids:
     webmercator:
         base: GLOBAL_WEBMERCATOR
-
-globals:
