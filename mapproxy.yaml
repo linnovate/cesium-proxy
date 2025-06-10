@@ -6,6 +6,10 @@
 # See documentation for more options.
 #
 
+globals:
+  http:
+    ssl_no_cert_checks: True
+    
 services:
   demo:
   tms:
@@ -41,5 +45,5 @@ sources:
       layers: OSM-WMS
 
 grids:
-    webmercator:
-        base: GLOBAL_WEBMERCATOR
+  webmercator:
+    base: GLOBAL_WEBMERCATOR

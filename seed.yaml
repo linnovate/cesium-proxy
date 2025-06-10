@@ -1,0 +1,13 @@
+seeds:
+  myseed1:
+    caches: [ows_cache]
+    coverages: [israel]
+    grids: [webmercator]
+    levels:
+      from: 9
+      to: 10
+      
+coverages:
+  israel:
+    bbox: [34.2, 29.5, 35.9, 33.3]
+    srs: 'EPSG:4326'

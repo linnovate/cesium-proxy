@@ -7,5 +7,6 @@
 - App: http://map.localhost 
 - MapProxy: http://mapproxy.map.localhost/demo
 
-### Notes:
-- The MapProxy encountered an SSL verification error for the proxy source: https://ows.terrestris.de/osm/service
+## Preload data
+- Go into the docker: `docker exec -it cesium-proxy-mapproxy-1 bash`
+- Then run: `mapproxy-seed -f mapproxy/mapproxy.yaml -s mapproxy/seed.yaml`
