@@ -6,28 +6,39 @@ services:
     command: --api.insecure=true --providers.docker
     ports:
       - 80:80
-      - 8080:8080 # Dashboard
+    #  - 8080:8080 # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-   
+
   mapproxy:
     image: kartoza/mapproxy
     volumes:
       - ./mapproxy.yaml:/mapproxy/mapproxy.yaml
       - ./seed.yaml:/mapproxy/seed.yaml
+      - ./.mapproxy_cache:/mapproxy/cache_data
+    ports:
+      - 8000:8080
     labels:
       - "traefik.http.routers.map_mapproxy.rule=Host(`mapproxy.map.localhost`)"
     expose:
       - 8080
+    # networks: 
+    #   - internal_network
+ 
+  3dtiles:
+    image: node:alpine
+    working_dir: /usr/src/app
+    user: node
+    volumes:
+      - ./3dtiles:/usr/src/app
+    command: sh -c 'npx http-server'  
+    ports:
+      - 8001:8080
+    labels:
+      - "traefik.http.routers.map_3dtiles.rule=Host(`3dtiles.map.localhost`)"
+    expose:
+      - 8080
       
-#  mapserver:
-#    image: mapserver/mapserver
-#    user: root
-#    labels:
-#      - "traefik.http.routers.map_mapserver.rule=Host(`mapserver.map.localhost`)"
-#    expose:
-#      - 80
-
   app:
     image: node:alpine
     working_dir: /usr/src/app
@@ -35,8 +46,13 @@ services:
     volumes:
       - ./app:/usr/src/app
     command: sh -c 'npx http-server'    
+    ports:
+      - 8080:8080
     labels:
       - "traefik.http.routers.map_app.rule=Host(`map.localhost`)"
     expose:
       - 8080
 
+networks:
+  internal_network:
+    internal: true

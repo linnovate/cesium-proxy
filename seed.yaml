@@ -1,12 +1,12 @@
 seeds:
-  myseed1:
-    caches: [ows_cache]
+  seed_israel:
+    caches: [imagery_cache]
     coverages: [israel]
-    grids: [webmercator]
+    grids: [GLOBAL_WEBMERCATOR]
     levels:
-      from: 9
-      to: 10
-      
+      from: 10
+      to: 12
+    
 coverages:
   israel:
     bbox: [34.2, 29.5, 35.9, 33.3]

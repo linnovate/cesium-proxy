@@ -1,35 +1,82 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <script src="/Cesium/Cesium.js"></script>
   <link href="/Cesium/Widgets/widgets.css" rel="stylesheet">
 </head>
+
 <body style="margin: 0;">
   <div id="cesiumContainer" style="height: 100vh"></div>
   <script>
-    // Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmYmIyOGVjYi02Yjg1LTRhNjctOTI3Ny1lNDRlOWNkODRkZGMiLCJpZCI6Mjg4NDU5LCJpYXQiOjE3NDMwOTQ3MTR9.XHNKSuj3hxveAp3RAIQ74EpD0SEPxaOOgC8CmGgBL3g';
-    const viewer = new Cesium.Viewer('cesiumContainer', {
-      animation: false,
-      timeline: false,
-      baseLayerPicker: false,
-      geocoder: true,
-      homeButton: false,
-      sceneModePicker: false,
-      navigationHelpButton: false,
-      navigationInstructionsInitiallyVisible: false,
-      fullscreenButton: false,
-      baseLayer: false,
-    });
-    viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-      url: "http://mapproxy.map.localhost/service?", 
-      layers: 'mapproxy',
-      parameters: {
-        layers: "ows",
-        format: 'image/png',
-      }
-    }));
+    (async () => {
+      // Cesium.Ion.defaultAccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiJmYmIyOGVjYi02Yjg1LTRhNjctOTI3Ny1lNDRlOWNkODRkZGMiLCJpZCI6Mjg4NDU5LCJpYXQiOjE3NDMwOTQ3MTR9.XHNKSuj3hxveAp3RAIQ74EpD0SEPxaOOgC8CmGgBL3g';
+      const viewer = new Cesium.Viewer('cesiumContainer', {
+        animation: false,
+        timeline: false,
+        baseLayerPicker: false,
+        geocoder: true,
+        homeButton: false,
+        // sceneModePicker: false,
+        navigationHelpButton: false,
+        navigationInstructionsInitiallyVisible: false,
+        fullscreenButton: false,
+        baseLayer: false,
+        // terrainProvider: await Cesium.CesiumTerrainProvider.fromIonAssetId(1, {
+        //   requestVertexNormals: true
+        // })
+        // terrainProvider: new Cesium.CustomHeightmapTerrainProvider({
+        //   width: 32,
+        //   height: 32,
+        //   callback: function (x, y, level) {
+        //     return new Float32Array(32 * 32); // all zeros
+        //   },
+        // }),
+        // terrainProvider: new Cesium.CesiumTerrainProvider({
+        //   url: 'http://127.0.0.1:8000/tms/1.0.0/terrain/EPSG3857/', 
+        // })
+      });
+
+      /**
+        * Use 3DTileset as local service
+        */
+      const tileset = await Cesium.Cesium3DTileset.fromUrl('http://3dtiles.map.localhost/tileset.json')
+      viewer.scene.primitives.add(tileset);
+      // viewer.flyTo(tileset)
+
+      /**
+        * Use Imagery as TMS proxy
+        */
+      viewer.imageryLayers.addImageryProvider(
+        new Cesium.UrlTemplateImageryProvider({
+          url: 'http://mapproxy.map.localhost/tms/1.0.0/imagery/EPSG3857/{reverseZ}/{x}/{reverseY}.png',
+          credit: 'Imagery from MapProxy',
+          tilingScheme: new Cesium.WebMercatorTilingScheme()
+        })
+        // new Cesium.UrlTemplateImageryProvider({
+        //   url: Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII') + '/{z}/{x}/{reverseY}.jpg',
+        //   credit: 'Imagery from MapProxy',
+        //   tilingScheme: new Cesium.GeographicTilingScheme,
+        //   maximumLevel : 5
+        // })
+      );
+
+      /**
+        * Use Imagery as WMS proxy
+        */
+      // viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+      //   url: "http://mapproxy.map.localhost/service?", 
+      //   layers: 'mapproxy',
+      //   parameters: {
+      //     layers: "wms_porxy",
+      //     format: 'image/png',
+      //   }
+      // }));
+
+    })()
   </script>
- </div>
+  </div>
 </body>
+
 </html>

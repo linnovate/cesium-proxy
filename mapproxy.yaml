@@ -1,10 +1,6 @@
 # -------------------------------
 # MapProxy example configuration.
 # -------------------------------
-#
-# This is a minimal MapProxy configuration.
-# See documentation for more options.
-#
 
 globals:
   http:
@@ -13,37 +9,58 @@ globals:
 services:
   demo:
   tms:
-    use_grid_names: true
-    # origin for /tiles service
-    origin: 'nw'
-  kml:
-      use_grid_names: true
   wmts:
+    md:
+      title: MapProxy WMTS Proxy
+      abstract: This is a minimal MapProxy example.
   wms:
     md:
       title: MapProxy WMS Proxy
       abstract: This is a minimal MapProxy example.
 
-layers:
-  - name: ows
-    title: ows
-    sources: [ows_cache]
-
-caches:
-  ows_cache:
-    grids: [webmercator]
-    sources: [ows]
-    meta_size: [1, 1]
-
 sources:
-  ows:
+  wms_porxy:
     type: wms
-    http:
-      ssl_no_cert_checks: True
     req:
       url: https://ows.terrestris.de/osm/service
       layers: OSM-WMS
+    http:
+      ssl_no_cert_checks: True
+  imagery:
+    type: tile
+    url: https://tiles.stadiamaps.com/tiles/alidade_satellite/%(z)s/%(x)s/%(y)s@2x.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36
+    grid: GLOBAL_WEBMERCATOR
+    coverage:
+      srs: 'EPSG:3857'
+    http:
+      ssl_no_cert_checks: True
+  terrain:
+    type: tile
+    url: https://tiles.stadiamaps.com/data/terrarium/%(z)s/%(x)s/%(y)s.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36
+    grid: GLOBAL_WEBMERCATOR
+    transparent: true
+    http:
+      ssl_no_cert_checks: True
 
-grids:
-  webmercator:
-    base: GLOBAL_WEBMERCATOR
+caches:
+  wms_porxy_cache:
+    grids: [GLOBAL_WEBMERCATOR]
+    sources: [wms_porxy]
+  imagery_cache:
+    sources: [imagery]
+    grids: [GLOBAL_WEBMERCATOR]
+  terrain_cache:
+    sources: [terrain]
+    grids: [GLOBAL_WEBMERCATOR]
+
+layers:
+  - name: wms_porxy
+    title: wms_porxy
+    sources: [wms_porxy_cache]
+  - name: imagery
+    title: Stadia Maps - Alidade Smooth
+    sources: [imagery_cache]
+  - name: terrain
+    title: Stadia Maps - Alidade Smooth
+    sources: [terrain_cache]
+    
