@@ -10,3 +10,7 @@
 ## Preload data
 - Go into the docker: `docker exec -it --user=mapproxy cesium-proxy-mapproxy-1 bash`
 - Then run: `mapproxy-seed -f mapproxy/mapproxy.yaml -s mapproxy/seed.yaml`
+
+## Create terrain data
+- Run: `docker run --rm -v ./terrain:/data homme/cesium-terrain-builder ctb-tile -o /data/terrain-tiles /data/43536_Ortho_20.tif`
+`

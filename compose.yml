@@ -29,7 +29,7 @@ services:
     user: node
     volumes:
       - ./terrain:/usr/src/app
-    command: sh -c 'npx http-server'  
+    command: sh -c 'npx http-server --cors'  
     ports:
       - 8001:8080
     labels:
@@ -43,7 +43,7 @@ services:
     user: node
     volumes:
       - ./3dtiles:/usr/src/app
-    command: sh -c 'npx http-server'  
+    command: sh -c 'npx http-server --cors'  
     ports:
       - 8002:8080
     labels:
