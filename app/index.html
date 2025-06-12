@@ -23,45 +23,14 @@
         navigationInstructionsInitiallyVisible: false,
         fullscreenButton: false,
         baseLayer: false,
-        // terrainProvider: await Cesium.CesiumTerrainProvider.fromIonAssetId(1, {
-        //   requestVertexNormals: true
-        // })
-        // terrainProvider: new Cesium.CustomHeightmapTerrainProvider({
-        //   width: 32,
-        //   height: 32,
-        //   callback: function (x, y, level) {
-        //     return new Float32Array(32 * 32); // all zeros
-        //   },
-        // }),
-        // terrainProvider: new Cesium.CesiumTerrainProvider({
-        //   url: 'http://127.0.0.1:8000/tms/1.0.0/terrain/EPSG3857/', 
-        // })
       });
 
       /**
         * Use 3DTileset as local service
         */
-      // const tileset = await Cesium.Cesium3DTileset.fromUrl('http://3dtiles.map.localhost/tileset.json')
-      // viewer.scene.primitives.add(tileset);
-      // viewer.flyTo(tileset)
-
-      /**
-        * Use Imagery as TMS proxy
-        */
-      // viewer.imageryLayers.addImageryProvider(
-        // new Cesium.UrlTemplateImageryProvider({
-        //   // url: 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36',
-        //   url: 'http://mapproxy.map.localhost/tms/1.0.0/imagery/EPSG3857/{z}/{x}/{y}.png',
-        //   credit: 'Imagery from MapProxy',
-        //   tilingScheme: new Cesium.WebMercatorTilingScheme()
-        // })
-        // new Cesium.UrlTemplateImageryProvider({
-        //   url: Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII') + '/{z}/{x}/{reverseY}.jpg',
-        //   credit: 'Imagery from MapProxy',
-        //   tilingScheme: new Cesium.GeographicTilingScheme,
-        //   maximumLevel : 5
-        // })
-      // );
+      const tileset = await Cesium.Cesium3DTileset.fromUrl('http://3dtiles.map.localhost/tileset.json')
+      viewer.scene.primitives.add(tileset);
+      viewer.flyTo(tileset)
 
       /**
         * Use Imagery as WMS proxy

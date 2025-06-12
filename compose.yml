@@ -6,7 +6,7 @@ services:
     command: --api.insecure=true --providers.docker
     ports:
       - 80:80
-    #  - 8080:8080 # Dashboard
+      - 8090:8080 # Dashboard
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
 
@@ -22,7 +22,21 @@ services:
       - 8080
    # networks: 
    #   - internal_network
- 
+
+  terrain:
+    image: node:alpine
+    working_dir: /usr/src/app
+    user: node
+    volumes:
+      - ./terrain:/usr/src/app
+    command: sh -c 'npx http-server'  
+    ports:
+      - 8001:8080
+    labels:
+      - "traefik.http.routers.map_terrain.rule=Host(`terrain.map.localhost`)"
+    expose:
+      - 8080
+      
   3dtiles:
     image: node:alpine
     working_dir: /usr/src/app
@@ -31,7 +45,7 @@ services:
       - ./3dtiles:/usr/src/app
     command: sh -c 'npx http-server'  
     ports:
-      - 8001:8080
+      - 8002:8080
     labels:
       - "traefik.http.routers.map_3dtiles.rule=Host(`3dtiles.map.localhost`)"
     expose:

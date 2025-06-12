@@ -7,6 +7,6 @@
 - App: http://map.localhost 
 - MapProxy: http://mapproxy.map.localhost/demo
 
-## For Preload data
-- Go into the docker: `docker exec -it cesium-proxy-mapproxy-1 bash`
+## Preload data
+- Go into the docker: `docker exec -it --user=mapproxy cesium-proxy-mapproxy-1 bash`
 - Then run: `mapproxy-seed -f mapproxy/mapproxy.yaml -s mapproxy/seed.yaml`
