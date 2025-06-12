@@ -19,13 +19,6 @@ services:
       abstract: This is a minimal MapProxy example.
 
 sources:
-  wms_porxy:
-    type: wms
-    req:
-      url: https://ows.terrestris.de/osm/service
-      layers: OSM-WMS
-    http:
-      ssl_no_cert_checks: True
   imagery:
     type: tile
     url: https://tiles.stadiamaps.com/tiles/alidade_satellite/%(z)s/%(x)s/%(y)s.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36
@@ -34,17 +27,11 @@ sources:
       ssl_no_cert_checks: True
 
 caches:
-  wms_porxy_cache:
-    grids: [GLOBAL_WEBMERCATOR]
-    sources: [wms_porxy]
   imagery_cache:
     sources: [imagery]
     grids: [GLOBAL_WEBMERCATOR]
 
 layers:
-  - name: wms_porxy
-    title: wms_porxy
-    sources: [wms_porxy_cache]
   - name: imagery
     title: Stadia Maps - Alidade Smooth
     sources: [imagery_cache]
