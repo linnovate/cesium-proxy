@@ -12,5 +12,5 @@
 - Then run: `mapproxy-seed -f mapproxy/mapproxy.yaml -s mapproxy/seed.yaml`
 
 ## Create terrain data
-- Run: `docker run --rm -v ./terrain:/data homme/cesium-terrain-builder ctb-tile -o /data/terrain-tiles /data/43536_Ortho_20.tif`
-`
+- Create terrain files: `docker run --rm -v ./terrain:/data tumgis/ctb-quantized-mesh ctb-tile -f Mesh -C -N -o /data /data/43536_Ortho_50.tif`
+- Create layer description file: `docker run --rm -v ./terrain:/data tumgis/ctb-quantized-mesh ctb-tile -f Mesh -C -N -l -o /data /data/43536_Ortho_50.tif`

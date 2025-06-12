@@ -1,0 +1,29 @@
+{
+  "tilejson": "2.1.0",
+  "name": "output_hh",
+  "description": "",
+  "version": "1.1.0",
+  "format": "heightmap-1.0",
+  "attribution": "",
+  "schema": "tms",
+  "tiles": [ "{z}/{x}/{y}.terrain?v={version}" ],
+  "projection": "EPSG:4326",
+  "bounds": [ 0.00, -90.00, 180.00, 90.00 ],
+  "available": [
+    [ { "startX": 1, "startY": 0, "endX": 1, "endY": 0 } ]
+   ,[ { "startX": 2, "startY": 1, "endX": 2, "endY": 1 } ]
+   ,[ { "startX": 4, "startY": 2, "endX": 4, "endY": 2 } ]
+   ,[ { "startX": 9, "startY": 5, "endX": 9, "endY": 5 } ]
+   ,[ { "startX": 19, "startY": 10, "endX": 19, "endY": 10 } ]
+   ,[ { "startX": 38, "startY": 21, "endX": 38, "endY": 21 } ]
+   ,[ { "startX": 76, "startY": 42, "endX": 76, "endY": 43 } ]
+   ,[ { "startX": 152, "startY": 85, "endX": 153, "endY": 86 } ]
+   ,[ { "startX": 305, "startY": 171, "endX": 306, "endY": 172 } ]
+   ,[ { "startX": 611, "startY": 343, "endX": 613, "endY": 344 } ]
+   ,[ { "startX": 1223, "startY": 686, "endX": 1227, "endY": 689 } ]
+   ,[ { "startX": 2447, "startY": 1373, "endX": 2455, "endY": 1378 } ]
+   ,[ { "startX": 4894, "startY": 2746, "endX": 4911, "endY": 2757 } ]
+   ,[ { "startX": 9789, "startY": 5492, "endX": 9823, "endY": 5515 } ]
+   ,[ { "startX": 19579, "startY": 10984, "endX": 19646, "endY": 11031 } ]
+  ]
+}
