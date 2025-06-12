@@ -13,17 +13,15 @@ services:
   mapproxy:
     image: kartoza/mapproxy
     volumes:
-      - ./mapproxy.yaml:/mapproxy/mapproxy.yaml
-      - ./seed.yaml:/mapproxy/seed.yaml
-      - ./.mapproxy_cache:/mapproxy/cache_data
+      - ./mapproxy:/mapproxy
     ports:
       - 8000:8080
     labels:
       - "traefik.http.routers.map_mapproxy.rule=Host(`mapproxy.map.localhost`)"
     expose:
       - 8080
-    # networks: 
-    #   - internal_network
+   # networks: 
+   #   - internal_network
  
   3dtiles:
     image: node:alpine

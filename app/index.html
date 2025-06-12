@@ -41,38 +41,39 @@
       /**
         * Use 3DTileset as local service
         */
-      const tileset = await Cesium.Cesium3DTileset.fromUrl('http://3dtiles.map.localhost/tileset.json')
-      viewer.scene.primitives.add(tileset);
+      // const tileset = await Cesium.Cesium3DTileset.fromUrl('http://3dtiles.map.localhost/tileset.json')
+      // viewer.scene.primitives.add(tileset);
       // viewer.flyTo(tileset)
 
       /**
         * Use Imagery as TMS proxy
         */
-      viewer.imageryLayers.addImageryProvider(
-        new Cesium.UrlTemplateImageryProvider({
-          url: 'http://mapproxy.map.localhost/tms/1.0.0/imagery/EPSG3857/{reverseZ}/{x}/{reverseY}.png',
-          credit: 'Imagery from MapProxy',
-          tilingScheme: new Cesium.WebMercatorTilingScheme()
-        })
+      // viewer.imageryLayers.addImageryProvider(
+        // new Cesium.UrlTemplateImageryProvider({
+        //   // url: 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36',
+        //   url: 'http://mapproxy.map.localhost/tms/1.0.0/imagery/EPSG3857/{z}/{x}/{y}.png',
+        //   credit: 'Imagery from MapProxy',
+        //   tilingScheme: new Cesium.WebMercatorTilingScheme()
+        // })
         // new Cesium.UrlTemplateImageryProvider({
         //   url: Cesium.buildModuleUrl('Assets/Textures/NaturalEarthII') + '/{z}/{x}/{reverseY}.jpg',
         //   credit: 'Imagery from MapProxy',
         //   tilingScheme: new Cesium.GeographicTilingScheme,
         //   maximumLevel : 5
         // })
-      );
+      // );
 
       /**
         * Use Imagery as WMS proxy
         */
-      // viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-      //   url: "http://mapproxy.map.localhost/service?", 
-      //   layers: 'mapproxy',
-      //   parameters: {
-      //     layers: "wms_porxy",
-      //     format: 'image/png',
-      //   }
-      // }));
+      viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+        url: "http://mapproxy.map.localhost/service?", 
+        layers: 'mapproxy',
+        parameters: {
+          layers: "imagery",
+          format: 'image/png',
+        }
+      }));
 
     })()
   </script>
