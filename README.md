@@ -52,3 +52,5 @@ You can access the deployed services via the following URLs:
 Currently, the `WMS` method is implemented, but the recommendation is to use `static directory files` imported and generated via MapProxy.
 - `MapProxy` does not currently support the `terrain` format, so it cannot be imported in the same way as `imagery`.
 - You can only work with `Stadia Maps` (https://tiles.stadiamaps.com) in Cesium using `WMS`, not `TMS`, due to an incompatible ZXY calculation.
+- In CesiumJS 2D mode, there's a black artifact (or section) appearing due to terrain, likely only with its heightmap-1.0 format.
+- In `offline` mode, MapProxy attempts to import incomplete data, which `overloads` the network until it `times out`.
