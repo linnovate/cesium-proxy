@@ -26,7 +26,7 @@ services:
    #   - internal_network
 
   app:
-    image: node:alpine
+    image: node:24-alpine
     working_dir: /usr/src/app
     user: node
     volumes:
