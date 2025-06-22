@@ -25,7 +25,7 @@ sources:
     grid: GLOBAL_WEBMERCATOR
     #max_res: 611.496226281 # as level 8
     coverage:
-      bbox: [3813950, 3486300, 4014900, 3968200]
+      bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
       srs: 'EPSG:3857'
   
 caches:
@@ -33,7 +33,7 @@ caches:
     sources: [imagery]
     grids: [GLOBAL_WEBMERCATOR]
     coverage:
-      bbox: [3813950, 3486300, 4014900, 3968200]
+      bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
       srs: 'EPSG:3857'
          
 layers:

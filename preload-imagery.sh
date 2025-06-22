@@ -6,7 +6,7 @@ OUTPUT_DIR="./imagery"
 # Run the first ctb-tile command
 echo "Running mapproxy-seed for Imagery generation..."
 
-source .env && docker run --rm \
+docker run --rm \
   -v ./mapproxy.yaml:/mapproxy/mapproxy.yaml \
   -v ./seed.yaml:/mapproxy/seed.yaml \
   -v "$OUTPUT_DIR":/mapproxy/cache_data/imagery_cache_EPSG3857 \

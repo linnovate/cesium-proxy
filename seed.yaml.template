@@ -9,5 +9,5 @@ seeds:
     
 coverages:
   israel:
-    bbox: [3813950, 3486300, 4014900, 3968200]
+    bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
     srs: 'EPSG:3857'

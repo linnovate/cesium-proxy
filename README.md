@@ -28,24 +28,21 @@ You can add multiple layers on top of each other, such as a layer of more recent
 To streamline data access and enable offline capabilities, we utilize [MapProxy](https://mapproxy.org). This setup facilitates quick and easy local image storage. MapProxy is also configured with a specific bounding box; any request outside of this area will return empty space (white space).
 
 The weight of files are:
-- file-size (~60k = 256px/256px) * level: 
-- zoom 1: 
+- file-size (`~60k = 256px/256px`) * zoom (`1 =* 3.17`)
 
 To configure the bounding box coordinates, follow these steps:
-1. **Update BBOX directly:** Modify the bounding box in the following files:
-   -  `./mapproxy.yaml` (around line 28)
-   -  `./mapproxy.yaml` (around line 97)
-   -   `./seed.yaml` (around line 12)
-   
-   **Update BBOX Environment Variables (Not working right now):** Modify the bounding box coordinates in your `.env` file:
+1. **Update BBOX Environment Variables:** Run the following code in your project directory's terminal, replacing the example coordinates with your desired bounding box coordinates (in `EPSG:3857` format):
    ```bash
-   # Israel
-   BBOX_LEFT=3813950
-   BBOX_BOTTOM=3486300
-   BBOX_RIGHT=4014900
-   BBOX_TOP=3968200
+   # Example bounding box coordinates (replace with your values)
+   export BBOX_LEFT=3813950
+   export BBOX_BOTTOM=3486300
+   export BBOX_RIGHT=4014900
+   export BBOX_TOP=3968200
+   # Apply the variables to the template files
+   envsubst < mapproxy.yaml.template > mapproxy.yaml
+   envsubst < seed.yaml.template > seed.yaml
    ```
-   After making these changes, remember to restart your Docker Compose agent.
+   After making these changes, remember to restart your Docker Compose agent to ensure the new configurations are loaded.
 2. **Manually Preload Data:** Navigate to your project directory in the terminal or command prompt and execute the following command:
    ```bash
    ./preload-imagery.sh
@@ -72,7 +69,7 @@ Terrain information can be obtained from the following common formats (often fou
 - DSM (Digital Surface Model)
 
 The weight of files are:
-- zoom: 
+- Relative to the area. The higher the zoom level, the greater the weight; the total overall size can be up to 2 times the original TIFF file size.
 
 To obtain and process a terrain map, follow these steps:
 1. **Download TIF File:** Acquire a TIF file from a service like [OpenTopography](https://portal.opentopography.org/raster?opentopoID=OTSDEM.032021.4326.3).
@@ -92,7 +89,7 @@ To obtain and process a terrain map, follow these steps:
 **3D Tiles** is a hierarchical data structure for streaming 3D geospatial content such as buildings. It allows for the inclusion of multiple assets.
 
 The weight of files are:
-- zoom: 
+- The original size received.
 
 To get 3D Tiles, follow these steps:
 1. **Sign In:** Go to https://ion.cesium.com/signin and sign in to your Cesium ion account.
