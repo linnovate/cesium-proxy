@@ -1,16 +1,14 @@
 seeds:
   seed_israel:
     caches: [imagery_cache]
-    coverages: [israel_3857]
+    coverages: [israel]
     grids: [GLOBAL_WEBMERCATOR]
     levels:
-      from: 1
-      to: 18
+      from: 0
+      to: 9
     
 coverages:
   israel:
-    bbox: [34.2, 29.5, 35.9, 33.3]
-    srs: 'EPSG:4326'
-  israel_3857:
     bbox: [3813950, 3486300, 4014900, 3968200]
+    #bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
     srs: 'EPSG:3857'

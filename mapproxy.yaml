@@ -23,14 +23,21 @@ sources:
     type: tile
     url: https://tiles.stadiamaps.com/tiles/alidade_satellite/%(z)s/%(x)s/%(y)s.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36
     grid: GLOBAL_WEBMERCATOR
-    http:
-      ssl_no_cert_checks: True
-
+    #max_res: 611.496226281 # as level 8
+    coverage:
+      bbox: [3813950, 3486300, 4014900, 3968200]
+      #bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
+      srs: 'EPSG:3857'
+  
 caches:
   imagery_cache:
     sources: [imagery]
     grids: [GLOBAL_WEBMERCATOR]
-
+    coverage:
+      bbox: [3813950, 3486300, 4014900, 3968200]
+      #bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
+      srs: 'EPSG:3857'
+         
 layers:
   - name: imagery
     title: Stadia Maps - Alidade Smooth
