@@ -27,8 +27,17 @@ You can add multiple layers on top of each other, such as a layer of more recent
 
 To streamline data access and enable offline capabilities, we utilize [MapProxy](https://mapproxy.org). This setup facilitates quick and easy local image storage. MapProxy is also configured with a specific bounding box; any request outside of this area will return empty space (white space).
 
-The weight of files are:
-- file-size (`~60k = 256px/256px`) * zoom (`1 =* 3.17`)
+The approximate file sizes per 1000m x 1000m area at different zoom levels are:
+- **Level 0-14:** (~85 KB * 15) = ~1.2 MB
+- **Level 15-16:** (~300 KB * 2) = ~600 KB
+- **Level 17:** ~1 MB
+- **Level 18:** ~2.5 MB
+- **Level 19:** ~7.6 MB
+- **Total Estimated Size:** ~13 MB
+
+*the Calculation:*
+- 1 tile size: `~60k, 256px/256px`
+- 1 tile meters: level 0 = `156,543.03` / level 16 = `2.388` / level 20 = `0.149`.
 
 To configure the bounding box coordinates, follow these steps:
 1. **Update BBOX Environment Variables:** Run the following code in your project directory's terminal, replacing the example coordinates with your desired bounding box coordinates (in `EPSG:3857` format):
