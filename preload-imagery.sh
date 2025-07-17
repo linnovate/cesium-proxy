@@ -40,6 +40,10 @@ docker run --rm \
   kartoza/mapproxy mapproxy-seed -f mapproxy.yaml -s seed.yaml
 
 if [[ "$OUTPUT_DIR" =~ ^s3://.* ]]; then
+  if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+    echo "Error: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables must be set for S3 operations."
+    exit 1
+  fi
   echo "Uploading output to S3: $OUTPUT_DIR"
   docker run --rm -it -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY $(pwd):/aws amazon/aws-cli s3 cp $OUTPUT_DIR_TMP $OUTPUT_DIR --recursive
 else

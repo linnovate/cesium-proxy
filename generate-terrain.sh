@@ -14,6 +14,10 @@ OUTPUT_DIR_TMP="./.tmp_terrain"
 mkdir -p "$OUTPUT_DIR_TMP"
 
 if [[ "$INPUT_FILE" =~ ^s3://.* ]]; then
+  if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+    echo "Error: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables must be set for S3 operations."
+    exit 1
+  fi
   echo "Downloading input file from S3: $INPUT_FILE"
   docker run --rm -it -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY $(pwd):/aws amazon/aws-cli s3 cp $INPUT_FILE /aws/$INPUT_FILE_TMP
 else
@@ -25,6 +29,10 @@ docker run --rm --user "$(id -u):$(id -g)" -v $INPUT_FILE_TMP:/file.tif -v $OUTP
 docker run --rm --user "$(id -u):$(id -g)" -v $INPUT_FILE_TMP:/file.tif -v $OUTPUT_DIR_TMP:/data tumgis/ctb-quantized-mesh ctb-tile -p mercator --layer -o /data /file.tif
 
 if [[ "$OUTPUT_DIR" =~ ^s3://.* ]]; then
+  if [ -z "$AWS_ACCESS_KEY_ID" ] || [ -z "$AWS_SECRET_ACCESS_KEY" ]; then
+    echo "Error: AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY environment variables must be set for S3 operations."
+    exit 1
+  fi
   echo "Uploading output to S3: $OUTPUT_DIR"
   docker run --rm -it -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY $(pwd):/aws amazon/aws-cli s3 cp $OUTPUT_DIR_TMP $OUTPUT_DIR --recursive
 else
