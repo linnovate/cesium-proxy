@@ -54,7 +54,8 @@ To configure the bounding box coordinates, follow these steps:
    After making these changes, remember to restart your Docker Compose agent to ensure the new configurations are loaded.
 2. **Manually Preload Data:** Navigate to your project directory in the terminal or command prompt and execute the following command:
    ```bash
-   ./preload-imagery.sh
+   # Example: ./preload-imagery.sh <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> [OUTPUT_DIR]
+   ./preload-imagery.sh 3813950 3486300 4014900 3968200
    ```
 3. **Add to Cesium UI:** Incorporate the imagery layer into your Cesium application using the following JavaScript code:
    ```js
