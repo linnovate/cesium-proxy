@@ -12,8 +12,6 @@ services:
 
   mapproxy:
     image: kartoza/mapproxy
-    env_file:
-      - .env
     volumes:
       - ./mapproxy.yaml:/mapproxy/mapproxy.yaml
       - ./seed.yaml:/mapproxy/seed.yaml

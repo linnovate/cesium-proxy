@@ -58,6 +58,19 @@ To configure the bounding box coordinates, follow these steps:
    ```
 3. **Add to Cesium UI:** Incorporate the imagery layer into your Cesium application using the following JavaScript code:
    ```js
+   /* Using static files */
+   // ...
+   viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+     url: '/imagery/{z}/000/000/{x}/000/000/{y}.png',
+     urlSchemeZeroPadding: { '{z}': '00', '{x}': '000', '{y}': '000' },
+     credit: 'Imagery from MapProxy',
+     tilingScheme: new Cesium.WebMercatorTilingScheme(),
+     minimumLevel: 0,
+     maximumLevel: 10,
+   }));
+   ```
+   ```js
+   /* Using WMS MapProxy server */
    // ...
    viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
      url: "http://mapproxy.map.localhost/service?", 

@@ -26,13 +26,14 @@
         navigationInstructionsInitiallyVisible: false,
         fullscreenButton: false,
         baseLayer: false,
+        requestRenderMode: true,
+        targetFrameRate: 30,
       });
 
       /**
         * Setup local Terrain
         */
       viewer.terrainProvider = await Cesium.CesiumTerrainProvider.fromUrl('/terrain');
-      // viewer.terrainProvider = await Cesium.CesiumTerrainProvider.fromUrl('/terrain2');
       
       /**
         * Setup local 3DTileset
@@ -40,31 +41,40 @@
       const tileset = await Cesium.Cesium3DTileset.fromUrl('/3dtiles/tileset.json')
       viewer.scene.primitives.add(tileset);
       viewer.flyTo(tileset)
-
+      
+      /**
+        * Setup local Imagery with Local files
+        */
+      viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+        url: '/imagery/{z}/000/000/{x}/000/000/{y}.png',
+        urlSchemeZeroPadding: { '{z}': '00', '{x}': '000', '{y}': '000' },
+        credit: 'Imagery from MapProxy',
+        tilingScheme: new Cesium.WebMercatorTilingScheme(),
+        minimumLevel: 0,
+        maximumLevel: 10,
+      }));
+      
       /**
         * Setup local Imagery with WMS
         */
-      viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
-        url: "http://mapproxy.map.localhost/service?", 
-        layers: 'mapproxy',
-        parameters: {
-          layers: "imagery",
-          format: 'image/png',
-        }
-      }));
+      // viewer.imageryLayers.addImageryProvider(new Cesium.WebMapServiceImageryProvider({
+      //   url: "http://mapproxy.map.localhost/service?", 
+      //   layers: 'mapproxy',
+      //   parameters: {
+      //     layers: "imagery",
+      //     format: 'image/png',
+      //   }
+      // }));
 
       /**
-        * Setup local Imagery with TMS
+        * Setup local Imagery with Remote files
         */
-      // viewer.imageryLayers.addImageryProvider(
-      //   new Cesium.UrlTemplateImageryProvider({
-      //     // url: 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36',
-      //     url: 'http://mapproxy.map.localhost/tms/1.0.0/imagery/EPSG3857/{z}/{x}/{y}.png',
-      //     credit: 'Imagery from MapProxy',
-      //     tilingScheme: new Cesium.WebMercatorTilingScheme()
-      //   })
-      // );
-
+      // viewer.imageryLayers.addImageryProvider(new Cesium.UrlTemplateImageryProvider({
+      //   url: 'https://tiles.stadiamaps.com/tiles/alidade_satellite/{z}/{x}/{y}.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36',
+      //   credit: 'Imagery from MapProxy',
+      //   tilingScheme: new Cesium.WebMercatorTilingScheme(),
+      // }));
+      
       /**
         * Setup remote Imagery with QGIS
         */
