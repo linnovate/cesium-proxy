@@ -2,7 +2,7 @@ import express from 'express';
 import path from 'path';
 import compression from 'compression';
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8090;
 
 app.listen(PORT, () => console.log(`Server is running on http://localhost:${PORT}`));
 

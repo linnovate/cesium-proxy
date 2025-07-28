@@ -71,8 +71,8 @@ if [[ "$OUTPUT_DIR" =~ ^s3://.* ]]; then
     -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     -e AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY \
     -e AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION \
-    -v $(pwd):/aws \
-    amazon/aws-cli s3 cp $OUTPUT_DIR_TMP $OUTPUT_DIR --recursive --no-verify-ssl
+    -v ./:/aws \
+    amazon/aws-cli s3 cp $OUTPUT_DIR_TMP $OUTPUT_DIR --recursive
 else
   # If it's a local path, remove any existing output directory and move the temporary output
   rm -rf $OUTPUT_DIR
@@ -80,3 +80,4 @@ else
 fi
 
 echo "Script finished successfully. Output is in the '$OUTPUT_DIR' directory."
+
