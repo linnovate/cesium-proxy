@@ -47,6 +47,7 @@ To configure the bounding box coordinates, follow these steps:
    export BBOX_BOTTOM=3486300
    export BBOX_RIGHT=4014900
    export BBOX_TOP=3968200
+   export LELEVS=10
    # Apply the variables to the template files
    envsubst < mapproxy.yaml.template > mapproxy.yaml
    envsubst < seed.yaml.template > seed.yaml
@@ -54,8 +55,10 @@ To configure the bounding box coordinates, follow these steps:
    After making these changes, remember to restart your Docker Compose agent to ensure the new configurations are loaded.
 2. **Manually Preload Data:** Navigate to your project directory in the terminal or command prompt and execute the following command:
    ```bash
-   # Example: ./preload-imagery.sh <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> [OUTPUT_DIR]
-   ./preload-imagery.sh 3813950 3486300 4014900 3968200
+   # Example: ./preload-imagery.sh <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> <LELEVS> [OUTPUT_DIR]
+   ./preload-imagery.sh 3813950 3486300 4014900 3968200 10 ./imagery
+   # Example S3:
+   AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION= ./preload-imagery.sh 3813950 3486300 4014900 3968200 10 s3://.../imagery
    ```
 3. **Add to Cesium UI:** Incorporate the imagery layer into your Cesium application using the following JavaScript code:
    ```js
@@ -98,7 +101,10 @@ To obtain and process a terrain map, follow these steps:
 1. **Download TIF File:** Acquire a TIF file from a service like [OpenTopography](https://portal.opentopography.org/raster?opentopoID=OTSDEM.032021.4326.3).
 2. **Generate Terrain Tiles:** Navigate to your project directory in the terminal or command prompt and execute the following command:
    ```bash
-   ./generate-terrain.sh ./your_file.tif
+   # Example: ./generate-terrain.sh [INPUT_FILE] [OUTPUT_DIR]
+   ./generate-terrain.sh ./your_file.tif ./terrain
+   # Example S3:
+   AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION= ./generate-terrain.sh s3://.../your_file.tif s3://.../terrain
    ```
  3. **Add to Cesium UI:** Incorporate the imagery layer into your Cesium application using the following JavaScript code:
       ```js
