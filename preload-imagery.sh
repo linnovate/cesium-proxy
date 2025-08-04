@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Check if the correct number of arguments are provided
-if [ "$#" -lt 4 ]; then
+if [ "$#" -lt 6 ]; then
   echo "Usage: $0 <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> <LEVELS> [OUTPUT_DIR]"
-  echo "Example: $0 34.0 31.0 35.0 32.0 s3://my-bucket/imagery"
+  echo "Example: $0 34.0 31.0 35.0 32.0 10 s3://my-bucket/imagery"
   exit 1
 fi
 
