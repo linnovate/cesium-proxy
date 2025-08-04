@@ -53,7 +53,7 @@ envsubst < seed.yaml.template > seed.yaml
 
 # Run the mapproxy-seed command inside a Docker container.
 echo "Running mapproxy-seed for Imagery generation..."
-docker run --rm \
+docker run --rm --name preload-imagery \
   -v ./mapproxy.yaml:/mapproxy/mapproxy.yaml \
   -v ./seed.yaml:/mapproxy/seed.yaml \
   -v "$OUTPUT_DIR_TMP":/mapproxy/cache_data/imagery_cache_EPSG3857 \
