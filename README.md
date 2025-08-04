@@ -47,7 +47,7 @@ To configure the bounding box coordinates, follow these steps:
    export BBOX_BOTTOM=3486300
    export BBOX_RIGHT=4014900
    export BBOX_TOP=3968200
-   export LELEVS=10
+   export LEVELS=10
    # Apply the variables to the template files
    envsubst < mapproxy.yaml.template > mapproxy.yaml
    envsubst < seed.yaml.template > seed.yaml
@@ -55,7 +55,7 @@ To configure the bounding box coordinates, follow these steps:
    After making these changes, remember to restart your Docker Compose agent to ensure the new configurations are loaded.
 2. **Manually Preload Data:** Navigate to your project directory in the terminal or command prompt and execute the following command:
    ```bash
-   # Example: ./preload-imagery.sh <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> <LELEVS> [OUTPUT_DIR]
+   # Example: ./preload-imagery.sh <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> <LEVELS> [OUTPUT_DIR]
    ./preload-imagery.sh 3813950 3486300 4014900 3968200 10 ./imagery
    # Example S3:
    AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION= ./preload-imagery.sh 3813950 3486300 4014900 3968200 10 s3://.../imagery

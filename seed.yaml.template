@@ -5,7 +5,7 @@ seeds:
     grids: [GLOBAL_WEBMERCATOR]
     levels:
       from: 0
-      to: $IMAGERY_LELEVS
+      to: $IMAGERY_LEVELS
     
 coverages:
   israel:

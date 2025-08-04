@@ -2,7 +2,7 @@
 
 # Check if the correct number of arguments are provided
 if [ "$#" -lt 4 ]; then
-  echo "Usage: $0 <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> <LELEVS> [OUTPUT_DIR]"
+  echo "Usage: $0 <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> <LEVELS> [OUTPUT_DIR]"
   echo "Example: $0 34.0 31.0 35.0 32.0 s3://my-bucket/imagery"
   exit 1
 fi
@@ -14,7 +14,7 @@ export BBOX_LEFT="$1"
 export BBOX_BOTTOM="$2"
 export BBOX_RIGHT="$3"
 export BBOX_TOP="$4"
-export LELEVS="$5"
+export LEVELS="$5"
 
 # Set OUTPUT_DIR to the fifth argument if provided, otherwise default to './imagery'.
 OUTPUT_DIR="${6:-./imagery}"
@@ -33,7 +33,7 @@ cat << EOF > "${OUTPUT_DIR_TMP}/settings.json"
   "BBOX_BOTTOM": $BBOX_BOTTOM,
   "BBOX_RIGHT": $BBOX_RIGHT,
   "BBOX_TOP": $BBOX_TOP,
-  "LELEVS": $LELEVS
+  "LEVELS": $LEVELS
 }
 EOF
 
