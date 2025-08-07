@@ -5,7 +5,8 @@
 globals:
   http:
     ssl_no_cert_checks: True
-
+    client_timeout: 5
+      
 services:
   demo:
   tms:
@@ -27,7 +28,11 @@ sources:
     coverage:
       bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
       srs: 'EPSG:3857'
-  
+    on_error:
+      other:
+        response: '#ede9e3'
+        cache: False
+      
 caches:
   imagery_cache:
     sources: [imagery]
@@ -40,3 +45,18 @@ layers:
   - name: imagery
     title: Stadia Maps - Alidade Smooth
     sources: [imagery_cache]
+    
+logs:
+  mapproxy:
+    level: info
+    handlers: [console]
+  mapproxy.request:
+    level: debug
+    handlers: [console]
+  mapproxy.cache:
+    level: debug
+    handlers: [console]
+  werkzeug:
+    level: warn
+    handlers: [console]
+
