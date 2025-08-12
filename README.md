@@ -58,7 +58,7 @@ To configure the bounding box coordinates, follow these steps:
    # Example: ./preload-imagery.sh <BBOX_LEFT> <BBOX_BOTTOM> <BBOX_RIGHT> <BBOX_TOP> <LEVELS> [OUTPUT_DIR]
    ./preload-imagery.sh 3813950 3486300 4014900 3968200 10 ./imagery
    # Example S3:
-   AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION= ./preload-imagery.sh 3813950 3486300 4014900 3968200 10 s3://.../imagery
+   AWS_ACCESS_KEY_ID= AWS_SECRET_ACCESS_KEY= AWS_DEFAULT_REGION= CACHE_TYPE=file|s3 ./preload-imagery.sh 3813950 3486300 4014900 3968200 10 s3://.../imagery
    ```
 3. **Add to Cesium UI:** Incorporate the imagery layer into your Cesium application using the following JavaScript code:
    ```js

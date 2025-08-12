@@ -5,7 +5,7 @@
 globals:
   http:
     ssl_no_cert_checks: True
-    client_timeout: 5
+    client_timeout: 1
       
 services:
   demo:
@@ -24,7 +24,6 @@ sources:
     type: tile
     url: https://tiles.stadiamaps.com/tiles/alidade_satellite/%(z)s/%(x)s/%(y)s.png?api_key=b95c9702-0a29-481d-b708-0df43a46bb36
     grid: GLOBAL_WEBMERCATOR
-    #max_res: 611.496226281 # as level 8
     coverage:
       bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
       srs: 'EPSG:3857'
@@ -37,26 +36,13 @@ caches:
   imagery_cache:
     sources: [imagery]
     grids: [GLOBAL_WEBMERCATOR]
-    coverage:
-      bbox: [$BBOX_LEFT, $BBOX_BOTTOM, $BBOX_RIGHT, $BBOX_TOP]
-      srs: 'EPSG:3857'
-         
+    cache:
+      type: $CACHE_TYPE
+      bucket_name: $AWS_BUCKET_NAME
+      region_name: $AWS_DEFAULT_REGION
+           
 layers:
   - name: imagery
     title: Stadia Maps - Alidade Smooth
     sources: [imagery_cache]
-    
-logs:
-  mapproxy:
-    level: info
-    handlers: [console]
-  mapproxy.request:
-    level: debug
-    handlers: [console]
-  mapproxy.cache:
-    level: debug
-    handlers: [console]
-  werkzeug:
-    level: warn
-    handlers: [console]
 
